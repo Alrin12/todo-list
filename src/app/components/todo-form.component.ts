@@ -18,17 +18,17 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class TodoFormComponent {
   content: string;
+
   @Output() addTodo = new EventEmitter();
 
-
   onEnter() {
-    if (this.content && this.content != ' ') {
+    if (this.content) {
       this.addTodo.emit(this.content);
       this.content = '';
     }
   }
 
   getErrorMessage() {
-    return '최소 한 글자 이상 입력해주세요!';
+    return '최소 한 글자 이상 입력하세요!';
   }
 }

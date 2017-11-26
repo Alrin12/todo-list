@@ -24,6 +24,8 @@ interface Todo {
                 [todos]="todos"
                 [statusNav]="selectedNavItem"
                 (removeTodo)="removeTodo($event)"
+                (modifyTodo)="modifyTodo($event)"
+                (modifyTodoId)="getModifyTodoId($event)"
                 (toggleCompleted)="toggleCompleted($event)"></app-todo-list>
 
                 <app-todo-footer
@@ -48,9 +50,10 @@ export class TodoContainerComponent implements OnInit {
   todos: Todo[];
   content: string;
   selectedNavItem: string;
-  completedTodos;
-  leftTodos;
-  navItems;
+  modifyTodoId: number;
+  completedTodos: number;
+  leftTodos: number;
+  navItems: object;
 
   // Category: Init
 
@@ -89,6 +92,15 @@ export class TodoContainerComponent implements OnInit {
       return todo.id !== todoId;
     });
   }
+
+  getModifyTodoId(modifyTodoId) {
+    this.modifyTodoId = modifyTodoId;
+  }
+
+  modifyTodo(modifyContent) {
+    this.todos = this.todos.map(todo => todo.id === this.modifyTodoId ? Object.assign(todo, { content: modifyContent }) : todo);
+  }
+
 
   // Category: Completed
 
